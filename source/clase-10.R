@@ -39,24 +39,24 @@ cat("message, warnings & errors indican diferentes niveles de mensajes.
      *warnings: informa algun tipo de error o anuncio importante que no impide el funcionamiento del programa.
      *error: indicador sobre el fua = ncionamiento correcto de la funcion.")
   
-unir = function(x, y){
-       palabra = paste0(x," - ",y) %>% toupper()
-       message(paste("message: las combinacion de las palabras producen:", palabra))
+unir <- function(x, y){
+        palabra = paste0(x," - ",y) %>% toupper()
+        message(paste("message: las combinacion de las palabras producen:", palabra))
 }
 unir(x = "hola", y = "clase")
 
 #----------------------#
 ## Veamos otro ejemplo (...)
-remove_na = function(x) x = ifelse(is.na(x)==T,0,x)
+remove_na <- function(x) x = ifelse(is.na(x)==T,0,x)
 
-vector = c(1:5,rep(NA,5),11:15)
+vector <- c(1:5,rep(NA,5),11:15)
 
 vector
-vector = remove_na(x = vector)
+vector <- remove_na(x = vector)
 vector
 
 storms %>% head()
-df = storms %>% as_tibble() 
+df <- storms %>% as_tibble() 
 df$tropicalstorm_force_diameter
 remove_na(x = df$tropicalstorm_force_diameter) %>% print()
 
@@ -66,7 +66,7 @@ df %>% head()
 #----------------------#
 ## Veamos un ejemplo (...)
 cat("funcion que regresa el producto de un numero por si mismo")
-num_2 = function(x){
+num_2 <- function(x){
         c = x*x
 return(c)
 }
@@ -74,7 +74,7 @@ num_2(x = 4)
 num_2(x = "A")
 
 # incluir controles de flujo
-num_2 = function(numero){
+num_2 <- function(numero){
   
         # si es un numero
         if (is.numeric(numero)){
@@ -118,7 +118,7 @@ dev.off()
 grid.raster(readPNG("input/pics/lapply.png"))
 
 lapply(mtcars, function(x) summary(x))
-lap = lapply(mtcars, function(x) summary(x))
+lap <- lapply(mtcars, function(x) summary(x))
 lap
 
 storms
@@ -131,7 +131,7 @@ lapply(storms ,function(x)  table(is.na(x)))
 dev.off()
 grid.raster(readPNG("input/pics/sapply.png"))
 
-sap = sapply(mtcars, summary)
+sap <- sapply(mtcars, summary)
 sap
 
 #=========================#
@@ -145,14 +145,14 @@ rm(list=ls())
 ## Chip
 browseURL("https://www.chip.gov.co/schip_rt/index.jsf")
 
-ejemplo = import("input/chip/2019/11767600044K212410-1220191625694914330.xls", skip = 7) %>% as_tibble()
+ejemplo <- import("input/chip/2019/11767600044K212410-1220191625694914330.xls", skip = 7) %>% as_tibble()
 ejemplo
 
 #----------------------#
 ## 1. Obtener rutas de los datos
 list.files("input/chip",full.names=T, recursive = T) 
 
-paths = list.files("input/chip",full.names=T, recursive = TRUE) %>% unlist()
+paths <- list.files("input/chip",full.names=T, recursive = TRUE) %>% unlist()
 
 #----------------------#
 ## 2. Hacer ejemplo para una observacion
