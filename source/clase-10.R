@@ -42,9 +42,9 @@ remove_na <- function(x) x = ifelse(is.na(x)==T,0,x)
 
 vector <- c(1:5,rep(NA,5),11:15)
 
-vector
-vector <- remove_na(x = vector)
-vector
+vector_2 = ifelse(is.na(vector)==T,0,vector)
+  
+vector_3 <- remove_na(x = vector)
 
 ## Veamos otro ejemplo (...)
 storms %>% head()
@@ -56,9 +56,9 @@ summary(df$tropicalstorm_force_diameter)
 
 ## replace NA por 0
 df <- df %>% 
-      mutate(tropicalstorm_force_diameter = remove_na(tropicalstorm_force_diameter))
+      mutate(new_var = remove_na(tropicalstorm_force_diameter))
 
-summary(df$tropicalstorm_force_diameter)
+summary(df$new_var)
 
 ## Veamos otro ejemplo: funcion que regresa el producto de un numero por si mismo
 num_2 <- function(x){
@@ -133,41 +133,57 @@ paths <- list.files("input/chip",full.names=T, recursive = TRUE) %>% unlist()
 ## 2. Hacer ejemplo para una observacion
 
 ## 2.1. leer archivo
-
+data = import("input/chip/2019/11767600044K212410-1220191625694914330.xls")
 
 ## 2.2. obtener codigo-DANE 
-
+name_mpio = colnames(data)[1]
 
 ## 2.3. obtener tipo de inversion
-
+tipo = data[8,2]
 
 ## 2.4. obtener valor
-
+valor = data[8,8]
 
 ## 2.5. consolidar informacion
-
+df = tibble(name=name_mpio , tipo_inver = tipo , valor_inv = valor)
 
 #----------------------#
 ## 3. Generalizar ejemplo en una función
-f_extrac <- function(path,tipo_rubro){
+f_extrac <- function(ruta){
   
-            ## 3.1. leer archivo
-            
-            
-            ## 3.2. obtener codigo-DANE 
-            
-            
-            ## 3.3. obtener tipo de inversion
-            
-            
-            ## 3.4. obtener valor
-            
-            
-            ## 3.5. consolidar informacion 
-            
-            
-            ## 3.6 Retornar output
+  ## 2.1. leer archivo
+  data = import(ruta)
   
+  ## 2.2. obtener codigo-DANE 
+  name_mpio = colnames(data)[1]
+  
+  ## 2.3. obtener tipo de inversion
+  tipo = data[8,2]
+  
+  ## 2.4. obtener valor
+  valor = data[8,8]
+  
+  ## 2.5. consolidar informacion
+  df = tibble(name=name_mpio , tipo_inver = tipo , valor_inv = valor)
+            
+  ## 3.6 Retornar output
+  return(df)
 }
+
+
+lista = list.files("input/chip",recursive = T , full.names = T)
+
+
+
+data_20 = f_extrac(lista[20])
+data_30 = f_extrac(lista[30])
+
+
+data_lapply = lapply(lista, function(x) f_extrac(ruta = x))
+
+data_df = rbindlist(l = data_lapply , use.names = T)
+
+
+
 
 
